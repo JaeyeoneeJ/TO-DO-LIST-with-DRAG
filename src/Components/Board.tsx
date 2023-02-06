@@ -6,13 +6,12 @@ import { ITodo, toDoState } from "../atoms";
 import { useSetRecoilState } from "recoil";
 
 const Wrapper = styled.div`
-  padding-top: 10px;
+  /* padding-top: 10px; */
   background-color: ${(props) => props.theme.boardColor};
   border: 1px solid ${(props) => props.theme.lightGrayColor};
   box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
-  /* width: 300px; */
-  min-height: 300px;
+  /* min-height: 300px; */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -38,14 +37,19 @@ const Area = styled.div<IAreaProps>`
       ? "#b2bec3"
       : "transparent"};
   flex-grow: 1;
-  transition: background-color 0.3s ease-in-out;
-  padding: 20px;
+  transition: background-color 0.2s ease-in-out;
+  padding: 10px;
+  min-height: 300px;
+  padding-bottom: 35px;
+  position: relative;
 `;
 
 const Form = styled.form`
   width: 100%;
-  padding: 0 10px;
+  height: 26px;
+  margin-bottom: 10px;
   input {
+    padding: 4px 8px;
     width: 100%;
     border: none;
     background-color: inherit;
@@ -60,6 +64,14 @@ const Form = styled.form`
   input:blur {
     border-bottom: 1px solid ${(props) => props.theme.mediumGrayColor};
   }
+`;
+
+const Text = styled.p`
+  padding: 10px;
+  font-size: 14px;
+  color: gray;
+  position: absolute;
+  bottom: 0;
 `;
 
 interface IBoardProps {
@@ -89,33 +101,36 @@ function Board({ toDos, boardId }: IBoardProps) {
   };
   return (
     <Wrapper>
-      <Title>{boardId}</Title>
-      <Form onSubmit={handleSubmit(onValid)}>
-        <input
-          {...register("toDo", { required: true })}
-          type="text"
-          placeholder={`Add task on ${boardId}`}
-          autoComplete="off"
-        />
-      </Form>
       <Droppable droppableId={boardId}>
         {(magic, info) => (
-          <Area
-            isDraggingOver={info.isDraggingOver}
-            isDraggingFromThis={Boolean(info.draggingFromThisWith)}
-            ref={magic.innerRef}
-            {...magic.droppableProps}
-          >
-            {toDos.map((toDo, index) => (
-              <DragabbleCard
-                key={toDo.id}
-                index={index}
-                toDoId={toDo.id}
-                toDoText={toDo.text}
-              />
-            ))}
-            {magic.placeholder}
-          </Area>
+          <>
+            <Area
+              isDraggingOver={info.isDraggingOver}
+              isDraggingFromThis={Boolean(info.draggingFromThisWith)}
+              ref={magic.innerRef}
+              {...magic.droppableProps}
+            >
+              <Title>{boardId}</Title>
+              <Form onSubmit={handleSubmit(onValid)}>
+                <input
+                  {...register("toDo", { required: true })}
+                  type="text"
+                  placeholder={`Add task on ${boardId}`}
+                  autoComplete="off"
+                />
+              </Form>
+              {toDos.map((toDo, index) => (
+                <DragabbleCard
+                  key={toDo.id}
+                  index={index}
+                  toDoId={toDo.id}
+                  toDoText={toDo.text}
+                />
+              ))}
+              {magic.placeholder}
+              <Text>+ Add another card</Text>
+            </Area>
+          </>
         )}
       </Droppable>
     </Wrapper>

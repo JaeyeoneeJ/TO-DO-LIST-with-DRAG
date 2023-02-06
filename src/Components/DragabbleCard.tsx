@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Card = styled.div<{ isDragging: boolean }>`
   border-radius: 5px;
-  padding: 10px;
+  padding: 8px;
   margin-bottom: 5px;
   background-color: ${(props) =>
     props.isDragging ? "#74b9ff" : props.theme.cardColor};
