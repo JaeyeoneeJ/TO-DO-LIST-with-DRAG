@@ -8,18 +8,21 @@ import { useSetRecoilState } from "recoil";
 const Wrapper = styled.div`
   padding-top: 10px;
   background-color: ${(props) => props.theme.boardColor};
+  border: 1px solid ${(props) => props.theme.lightGrayColor};
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   /* width: 300px; */
   min-height: 300px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 `;
 
 const Title = styled.h2`
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 20px;
 `;
 
 interface IAreaProps {
@@ -41,8 +44,21 @@ const Area = styled.div<IAreaProps>`
 
 const Form = styled.form`
   width: 100%;
+  padding: 0 10px;
   input {
     width: 100%;
+    border: none;
+    background-color: inherit;
+    border-bottom: 1px solid ${(props) => props.theme.mediumGrayColor};
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+  }
+  input:focus {
+    outline: none;
+    border-bottom: 3px solid rgba(7, 91, 201, 0.5);
+  }
+  input:blur {
+    border-bottom: 1px solid ${(props) => props.theme.mediumGrayColor};
   }
 `;
 
@@ -79,6 +95,7 @@ function Board({ toDos, boardId }: IBoardProps) {
           {...register("toDo", { required: true })}
           type="text"
           placeholder={`Add task on ${boardId}`}
+          autoComplete="off"
         />
       </Form>
       <Droppable droppableId={boardId}>
