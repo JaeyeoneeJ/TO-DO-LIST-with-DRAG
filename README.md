@@ -1,8 +1,8 @@
 # TRELLO-CLONE
 
-<img width="100%" src="https://user-images.githubusercontent.com/77138259/217044644-a12da0d1-260d-43df-82b5-945491e44bfa.png" />
+<img width="100%" src="https://user-images.githubusercontent.com/77138259/217217037-fdd194bf-bec2-4371-99c9-97d7f4cee4d5.png" />
 
-<a href="https://trello-clone-eta-nine.vercel.app/">나만의 To Do List 만들어보기</a>
+<a href="https://trello-clone-eta-nine.vercel.app/">클릭! 나만의 To Do List 만들러 가기</a>
 
 - Trello를 클론한 프로젝트입니다.
 - react-beautiful-dnd 라이브러리를 사용하여 drag 기능을 구현했습니다.
@@ -13,3 +13,4 @@
 - input란에 유저의 To Do를 작성(Card 생성)
 - Mouse Drag를 통한 Card => 순번 변경 및 Board 간 이동
 - 전역 상태 관리를 위한 localStorage 사용
+- 앱 하단 휴지통에 Card를 이동하면 해당 Card 삭제 기능 구현
