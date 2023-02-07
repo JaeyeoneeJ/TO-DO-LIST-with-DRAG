@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { toDoState } from "./atoms";
 import Board from "./Components/Board";
 import Header from "./Components/Header";
+import TrashCan from "./Components/TrashCan";
 
 const Background = styled.div`
   width: 100%;
@@ -15,7 +16,7 @@ const Background = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  max-width: 680px;
+  max-width: 1180px;
   width: 100%;
   margin: 0 auto;
   justify-content: center;
@@ -36,6 +37,17 @@ function App() {
     const { destination, draggableId, source } = info;
     console.log(info);
     if (!destination) return;
+    if (destination.droppableId === "trashCan") {
+      setToDos((allBoards) => {
+        const boardCopy = [...allBoards[source.droppableId]];
+        boardCopy.splice(source.index, 1);
+        return {
+          ...allBoards,
+          [source.droppableId]: boardCopy,
+        };
+      });
+      return;
+    }
     if (destination?.droppableId === source.droppableId) {
       // same board movement
       setToDos((allBoards) => {
@@ -75,6 +87,7 @@ function App() {
               <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
             ))}
           </Boards>
+          <TrashCan />
         </Wrapper>
       </DragDropContext>
     </Background>
